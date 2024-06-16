@@ -15,6 +15,7 @@ public class RefreshVideoStateJob(ApplicationDbContext db, IMlService mlService,
         foreach (var video in videosToCheckForDownloading)
         {
             var ready = await mlService.IsDownloaded(video.MlId);
+            Console.WriteLine($"--->>>  {ready}");
             if (ready)
             {
                 video.VideoState = VideoState.Downloaded;
@@ -40,7 +41,7 @@ public class RefreshVideoStateJob(ApplicationDbContext db, IMlService mlService,
                 video.VideoState = VideoState.Processed;
                 var matches = response.Result
                     .Select(m => new Match()
-                    {
+                    { 
                         VideoId = video.Id,
                         EndTime = m.End,
                         EndTimeMatch = m.EndMatch,

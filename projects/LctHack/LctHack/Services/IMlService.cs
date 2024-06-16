@@ -17,8 +17,8 @@ public class MlService(HttpClient client) : IMlService
     {
         var response = await client.PostAsJsonAsync("set_video_download", new
         {
-            Url = url,
-            Title = title,
+            download_url = url,
+            Filename = title,
             Purpose = "index"
         });
         var id = await response.Content.ReadFromJsonAsync<MlIdResponse>();
@@ -29,8 +29,8 @@ public class MlService(HttpClient client) : IMlService
     {
         var response = await client.PostAsJsonAsync("set_video_download", new
         {
-            Url = url,
-            Title = title,
+            download_url = url, 
+            Filename = title, 
             Purpose = "val"
         });
         var id = await response.Content.ReadFromJsonAsync<MlIdResponse>();
@@ -43,6 +43,10 @@ public class MlService(HttpClient client) : IMlService
         {
             task_id = videoMlId
         });
+        if (!httpResponse.IsSuccessStatusCode)
+        {
+            return null;
+        }
         var response = await httpResponse.Content.ReadFromJsonAsync<MlStrangeResponse>();
         if (response?.Status != "ready") return null;
         
@@ -80,8 +84,13 @@ public class MlService(HttpClient client) : IMlService
         {
             task_id = fileMlId
         });
+        if (!httpResponse.IsSuccessStatusCode)
+        {
+            return false;
+        }
         var response = await httpResponse.Content.ReadFromJsonAsync<MlStrangeResponse>();
-        return response?.Status != "ready";
+        Console.WriteLine($"-->>> {response?.Status}");
+        return response?.Status == "ready";  
     }
 
     class MlIdResponse

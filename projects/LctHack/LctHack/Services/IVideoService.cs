@@ -20,7 +20,7 @@ public class VideoService(ApplicationDbContext db, IMlService mlService, AmazonS
     public async Task<string> DownloadVideo(string fileTitle, Stream fileStream)
     {
         var videoId = Guid.NewGuid();
-        var initialState = VideoState.Processing;
+        var initialState = VideoState.Downloading;
         var video = await AddVideo(fileTitle, fileStream, videoId, initialState);
         
         var url = await urlGenerator.CreateUrl(video.FormTitle);
@@ -34,7 +34,7 @@ public class VideoService(ApplicationDbContext db, IMlService mlService, AmazonS
     public async Task<string> VerifyVideo(string fileTitle, Stream fileStream)
     {
         var videoId = Guid.NewGuid();
-        var initialState = VideoState.WaitingInOrderForProcessing;
+        var initialState = VideoState.Processing;
         var video = await AddVideo(fileTitle, fileStream, videoId, initialState);
         
         var url = await urlGenerator.CreateUrl(video.FormTitle);
