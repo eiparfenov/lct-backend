@@ -1,0 +1,6 @@
+":5291" {
+	reverse_proxy /videos-bucket* "http://aws_s3:8000" {
+        header_up Host localhost
+    }
+	reverse_proxy /api* "http://backend:8080"
+}

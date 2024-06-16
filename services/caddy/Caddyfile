@@ -1,0 +1,6 @@
+":5290" {
+	reverse_proxy /videos-bucket* "http://localhost:5678" {
+        header_up Host localhost
+    }
+	reverse_proxy /api* "http://localhost:5240"
+}

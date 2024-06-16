@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  db:
+    image: 'postgres:16.2'
+    environment:
+      POSTGRES_PASSWORD: 'password'
+    networks:
+      - local
+    
+  aws_s3:
+    image: 'scality/s3server'
+    environment:
+      ENDPOINT: aws_s3
+    networks:
+      - local
+  
+  caddy:
+    image: 'caddy:2'
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    ports:
+      - '5291:5291'
+    networks:
+      - local
+  
+  backend:
+    image: 'eiparfenov/lct-backend'
+    environment:
+      ConnectionStrings__PostgresDb: 'Host=db;Port=5432;Database=videos;Username=postgres;Password=password'
+      S3Options__AccessKeyId: 'accessKey1'
+      S3Options__SecretAccessKey: 'verySecretKey1'
+      S3Options__ServiceUrl: 'http://aws_s3:8000'
+      S3Options__BucketName: 'videos-bucket'
+      UrlGeneratorOptions__Template: 'https://3ce0-109-252-24-49.ngrok-free.app/videos-bucket/videos/{0}.mp4'
+    networks:
+      - local
+
+networks:
+  local: {}
