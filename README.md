@@ -15,8 +15,10 @@ Asp net core, Quartz, Postgresql, S3, Caddy
 ### Конфигурация
 Конфигурация через переменные окружения
 * `ConnectionStrings__PostgresDb`: строка подключения к базе
+* `ConnectionStrings__MlService`: url к ml сервису - его нужно настроить при запуске
 * `S3Options__AccessKeyId`: ид ключа для s3
 * `S3Options__SecretAccessKey`: ключ к s3
 * `S3Options__ServiceUrl`: url s3 сервиса
 * `S3Options__BucketName`: имя бакета
-* `UrlGeneratorOptions__Template`: шаблон для генерации ссылки `https://3ce0-109-252-24-49.ngrok-free.app/videos-bucket/videos/{0}.mp4`
+* `UrlGeneratorOptions__Template`: шаблон для генерации ссылки `https://3ce0-109-252-24-49.ngrok-free.app/videos-bucket/videos/{0}.mp4` - эта шаблон используется для генерации ссылки, которая отправляется в сервис машинного обучения для скачивания видео. При развернтывании может потребоваться заменить домен в ссылке.
+
