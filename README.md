@@ -22,3 +22,8 @@ Asp net core, Quartz, Postgresql, S3, Caddy
 * `S3Options__BucketName`: имя бакета
 * `UrlGeneratorOptions__Template`: шаблон для генерации ссылки `https://3ce0-109-252-24-49.ngrok-free.app/videos-bucket/videos/{0}.mp4` - эта шаблон используется для генерации ссылки, которая отправляется в сервис машинного обучения для скачивания видео. При развернтывании может потребоваться заменить домен в ссылке.
 
+## Запуск
+Для запуска использовать команду
+```bash
+docker compose up
+```
