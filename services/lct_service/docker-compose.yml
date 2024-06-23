@@ -32,7 +32,14 @@ services:
       S3Options__SecretAccessKey: 'verySecretKey1'
       S3Options__ServiceUrl: 'http://aws_s3:8000'
       S3Options__BucketName: 'videos-bucket'
-      UrlGeneratorOptions__Template: 'https://3ce0-109-252-24-49.ngrok-free.app/videos-bucket/videos/{0}.mp4'
+      UrlGeneratorOptions__Template: 'https://backend/videos-bucket/videos/{0}.mp4'
+      UrlGeneratorOptions__ExternalTemplate: "https://3ce0-109-252-24-49.ngrok-free.app/videos-bucket/videos/{0}.mp4"
+      ConnectionStrings__MlService: 'http://ml_service'
+    networks:
+      - local
+  
+  ml_service:
+    image: 'укажите тут сой имадж'
     networks:
       - local
 
