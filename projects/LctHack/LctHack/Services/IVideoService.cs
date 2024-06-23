@@ -82,7 +82,7 @@ public class VideoService(ApplicationDbContext db, IMlService mlService, AmazonS
             return null;
         }
 
-        var url = await urlGenerator.CreateUrl(fileId);
+        var url = await urlGenerator.CreateUrl(fileId, external: true);
         
         return (url, video.Title);
     }
