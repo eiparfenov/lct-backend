@@ -37,11 +37,6 @@ services:
       ConnectionStrings__MlService: 'http://ml_service'
     networks:
       - local
-  
-  ml_service:
-    image: 'укажите тут сой имадж'
-    networks:
-      - local
 
 networks:
   local: {}
